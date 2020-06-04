@@ -13,10 +13,10 @@
 ## Após clonar o projeto: 
 
 #### Instalação das Dependências:
+
 ```
 cd eColeta 
 cd api && npm install 
 cd web && npm install 
 
 ```
-</p>
