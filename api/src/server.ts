@@ -2,9 +2,9 @@ import express from 'express';
 
 const app = express();
 
-app.get('/users', (req, res) => {
+app.get('/users', (req, res) => {  
   res.status(200).send({ 
-   result:'Ok', data:['Listagem de Usuários']
+   result:'Ok', data:[`Listagem de Usuários`]
   })
 })
 
