@@ -10,6 +10,7 @@ routes.get('/api/items', async (req, res) => {
 
   const serializedItems = items.map(item => {
     return {
+      id: item.id,
       title: item.title,
       image_url: `http://localhost:3030/api/uploads/${item.image}`,
     };
@@ -17,25 +18,8 @@ routes.get('/api/items', async (req, res) => {
 
   return res.status(200).send({
     result: true, data: [serializedItems]
-  })
-});
+  });
 
-routes.get('/api/users', (req, res) => {
-
-  res.status(200).send({
-    result: 'Ok', data: ['']
-  })
-});
-
-
-routes.get('api/users', (req, res) => {
-
-  // const search = String(req.query.search);
-  // const filterusers = search ? users.filter(user => user.includes((search))) : users; 
-
-  res.status(200).send({
-    result: 'Ok', data: ['']
-  })
 });
 
 routes.get('/api/users/:id', (req, res) => {
@@ -48,16 +32,31 @@ routes.get('/api/users/:id', (req, res) => {
   })
 });
 
-routes.post('/api/users', (req, res) => {
-  const data = req.body;
+routes.post('/api/points', async (req, res) => {
+  const {
+    name, 
+    email, 
+    whatsapp, 
+    latitude, 
+    longitude, 
+    city, 
+    uf, 
+    items
+  } = await req.body;
 
-  const useris = {
-    name: data.name,
-    email: data.email
-  }
-
+  await knex('points').insert({
+    image: 'null',
+    name, 
+    email, 
+    whatsapp, 
+    latitude, 
+    longitude, 
+    city, 
+    uf
+  });
+ 
   return res.status(200).send({
-    result: 'Ok', data: [useris]
+    result: true, data: [items]
   });
 });
 

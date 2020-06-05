@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "server": "npx ts-node src/server.ts",
+    "server": "npx ts-node --transpileOly --ignore-watch node_modules src/server.ts",
     "dev": "ts-node-dev src/server.ts",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:migrate": "knex migrate:latest --knexfile knexfile.ts migrate:latest"
@@ -13,6 +13,7 @@
   "author": "Nayara Ferreira",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
