@@ -42,9 +42,11 @@ routes.post('/api/points', async (req, res) => {
     city, 
     uf, 
     items
-  } = await req.body;
+  } = req.body;
 
-  await knex('points').insert({
+  const trx = await knex.transaction();
+
+  const insertedIds = await trx('points').insert({
     image: 'null',
     name, 
     email, 
@@ -54,6 +56,17 @@ routes.post('/api/points', async (req, res) => {
     city, 
     uf
   });
+
+  const point_id = insertedIds[0]
+
+  const pointItems = items.map((item_id: number) => {
+    return {
+      item_id, 
+      point_id: point_id
+    };
+  });
+
+  await trx('point_items').insert(pointItems);
  
   return res.status(200).send({
     result: true, data: [items]
