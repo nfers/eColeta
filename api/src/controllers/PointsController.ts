@@ -45,6 +45,7 @@ class PointsController {
 
   async create(req: Request, res: Response) {
     const {
+      image,
       name,
       email,
       whatsapp,
@@ -58,7 +59,7 @@ class PointsController {
     const trx = await knex.transaction();
 
     const point = {
-      image: 'null',
+      image,
       name,
       email,
       whatsapp,
