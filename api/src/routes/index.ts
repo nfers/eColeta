@@ -12,8 +12,9 @@ const items = new ItemsController();
 const pointsItems = new Points_ItemsController();
 
 routes.post('/api/points', points.create);
-routes.get('/api/points', points.getAll); //example http://localhost:3030/api/points/1
-routes.get('/api/points/:id', points.show);
+routes.get('/api/points/all', points.getAll); 
+routes.get('/api/points/:id', points.show);//example http://localhost:3030/api/points/1
+routes.get('/api/points', points.index);
 
 routes.get('/api/items', items.index);
 
