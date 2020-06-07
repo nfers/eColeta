@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 
 import './style.css';
 import logo from '../../assets/logo.svg';
@@ -53,6 +54,12 @@ const CreatePoint = () => {
 						<span>Selecione o Endereço no Mapa</span>
 					</legend>
 
+					<Map center={[-16.6698391, -49.2112945]} zoom={15}>
+						<TileLayer
+							attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+			      <Marker position={[-16.6698391, -49.2112945]} />
+					</Map>
 					<div className="field-group">
 						<div className="field">
 							<label htmlFor="uf">UF</label>
@@ -74,7 +81,26 @@ const CreatePoint = () => {
 						<h2>Ítens de Coleta</h2>
 						<span>Selecione um ou mais itens abaixo</span>
 					</legend>
+
+					<ul className="items-grid">
+						<li className="selected">
+							<img src="http://localhost:3030/api/uploads/lampadas.svg" alt="teste" />
+							<span>Lâmpadas</span>
+						</li>
+						<li className="">
+							<img src="http://localhost:3030/api/uploads/oleo.svg" alt="teste" />
+							<span>Óleo</span>
+						</li>
+						<li className="">
+							<img src="http://localhost:3030/api/uploads/baterias.svg" alt="teste" />
+							<span>Óleo</span>
+						</li>
+					</ul>
+
 				</fieldset>
+				<button type="submit">
+					Cadastrar Ponto de Coleta
+				</button>
 			</form>
 
 		</div>
