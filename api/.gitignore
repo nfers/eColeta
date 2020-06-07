@@ -1,3 +1,4 @@
 node_modules/
 instrucoes.txt
 package-lock.json
+database.sqlite-journal

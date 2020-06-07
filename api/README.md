@@ -1,4 +1,4 @@
-# eColeta
+# eColeta ♻
 
 #### Aplicação Desenvolvida durante a Nex Level Week </h4>
 
