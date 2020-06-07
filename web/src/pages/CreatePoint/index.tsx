@@ -31,7 +31,7 @@ const CreatePoint = () => {
 	const [ufs, setUfs] = useState<string[]>([]);
 	const [city, setCity] = useState<string[]>([]);
 	const [ufSelected, setUfSelected] = useState('0');
-	const [cityfSelected, setcitySelected] = useState('0');
+	const [cityfSelected, setCitySelected] = useState('0');
 
 	useEffect(() => {
 		api.get('items').then(response => {
@@ -62,6 +62,12 @@ const CreatePoint = () => {
 	function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
 		const uf = event.target.value;
 		setUfSelected(uf)
+	}
+
+	function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+		const city = event.target.value;
+
+		setCitySelected(city)
 	}
 
 	return (
@@ -119,7 +125,8 @@ const CreatePoint = () => {
 							<select
 								name="uf" id="uf"
 								value={ufSelected}
-								onChange={handleSelectUf}>
+								onChange={handleSelectUf}
+							>
 								<option value="0">Selecione uma UF</option>
 								{ufs.map(uf => (
 									<option key={uf} value={uf}>{uf}</option>
@@ -129,7 +136,12 @@ const CreatePoint = () => {
 
 						<div className="field">
 							<label htmlFor="city">Cidade</label>
-							<select name="city" id="city">
+							<select 
+								name="city" 
+								id="city"
+								value={cityfSelected}
+								onChange={handleSelectCity}
+							>
 								<option value="0">Selecine uma Cidade</option>
 								{city.map( cities => (
 									<option key={cities} value={cities}>{cities}</option>
