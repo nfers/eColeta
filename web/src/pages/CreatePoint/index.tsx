@@ -7,6 +7,7 @@ import apiUf from '../../services/apiUF';
 
 import './style.css';
 import logo from '../../assets/logo.svg';
+import Maps from './../../components/Maps';
 
 interface Item {
 	id: number;
@@ -36,7 +37,7 @@ const CreatePoint = () => {
 
 			setUfs(ufInitials);
 		})
-	}, [])
+	}, [])	
 
 	//Municipios
 	useEffect(() => {
@@ -94,19 +95,14 @@ const CreatePoint = () => {
 						<span>Selecione o Endereço no Mapa</span>
 					</legend>
 
-					<Map center={[-16.6698391, -49.2112945]} zoom={15}>
-						<TileLayer
-							attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-						<Marker position={[-16.6698391, -49.2112945]} />
-					</Map>
+					<Maps />
 					<div className="field-group">
 						<div className="field">
 							<label htmlFor="uf">UF</label>
 							<select name="uf" id="uf">
-								
+							<option value="0">Selecione uma UF</option>
 								{ufs.map(uf => (
-									<option value={uf}>{uf}</option>
+									<option key={uf} value={uf}>{uf}</option>
 								))}
 							</select>
 						</div>
