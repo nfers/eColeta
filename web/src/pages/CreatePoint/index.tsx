@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import api from '../../services/api';
+import apiUf from '../../services/apiUF';
 
 import './style.css';
 import logo from '../../assets/logo.svg';
@@ -13,15 +14,38 @@ interface Item {
 	image_url: string;
 }
 
+interface IBGEUF {
+	sigla: string;
+}
+
 const CreatePoint = () => {
 
 	const [items, setItems] = useState<Item[]>([]);
+	const [ufs, setUfs] = useState<string[]>([]);
 
 	useEffect(() => {
-		api.get('items').then(response => {			
+		api.get('items').then(response => {
 			setItems(response.data.data[0])
 		});
 	}, []);
+	
+	//estados
+	useEffect(() => {
+		apiUf.get<IBGEUF[]>('estados').then( res => {
+			const ufInitials = res.data.map(uf => uf.sigla)
+
+			setUfs(ufInitials);
+		})
+	}, [])
+
+	//Municipios
+	useEffect(() => {
+
+	}, [])
+//	https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios
+//https://servicodados.ibge.gov.br/api/v1/localidades/estados
+
+
 
 	return (
 		<div id="page-create-point">
@@ -74,13 +98,16 @@ const CreatePoint = () => {
 						<TileLayer
 							attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-			      <Marker position={[-16.6698391, -49.2112945]} />
+						<Marker position={[-16.6698391, -49.2112945]} />
 					</Map>
 					<div className="field-group">
 						<div className="field">
 							<label htmlFor="uf">UF</label>
 							<select name="uf" id="uf">
-								<option value="0">Selecine a UF</option>
+								
+								{ufs.map(uf => (
+									<option value={uf}>{uf}</option>
+								))}
 							</select>
 						</div>
 						<div className="field">
@@ -99,13 +126,13 @@ const CreatePoint = () => {
 					</legend>
 
 					<ul className="items-grid">
-	{items.map(item => (
-		<li className="selected" key={item.id}>
-		<img src={item.image_url} alt="teste" />
-		<span key={item.id}>{item.title}</span>
-	</li>
-	))}
-					
+						{items.map(item => (
+							<li className="selected" key={item.id}>
+								<img src={item.image_url} alt={item.title} />
+								<span key={item.id}>{item.title}</span>
+							</li>
+						))}
+
 					</ul>
 
 				</fieldset>
