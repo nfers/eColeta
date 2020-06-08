@@ -3,7 +3,13 @@ import { useDropzone } from 'react-dropzone'
 import './styles.css';
 import { FiUpload } from 'react-icons/fi'
 
-const Dropzone = () => {
+//se a funcao retornasse algum valor, deveria ser informado no lugar de void
+interface Props {
+  onFileUploaded: (file: File) => void;
+}
+
+const Dropzone : React.FC<Props> = ({ onFileUploaded }) => {
+  
   const [selectedFile, setSelectedFile] = useState('');
   const onDrop = useCallback(acceptedFiles => {
     const file = acceptedFiles[0];
@@ -11,8 +17,10 @@ const Dropzone = () => {
     const fileUrl = URL.createObjectURL(file);
 
     setSelectedFile(fileUrl);
+    onFileUploaded(file);
 
-  }, [])
+  }, [onFileUploaded]);
+  
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' })
 
   return (

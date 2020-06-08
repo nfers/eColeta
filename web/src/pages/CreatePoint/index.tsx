@@ -42,6 +42,7 @@ const CreatePoint = () => {
 	const [ufSelected, setUfSelected] = useState('0');
 	const [cityfSelected, setCitySelected] = useState('0');
 	const [selectedItems, setSelectedItems] = useState<number[]>([]);
+	const [selectedFile, setSelectedFile ] = useState<File>();
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -133,16 +134,22 @@ const CreatePoint = () => {
 
 		const [latitude, longitude] = selectedPosition;
 		const items = selectedItems;
-		const data = {
-			name,
-			email,
-			whatsapp,
-			city,
-			uf,
-			latitude,
-			longitude,
-			items
+
+		const data = new FormData();
+
+		data.append('name', name);
+		data.append('email', email);
+		data.append('whatsapp', whatsapp);
+		data.append('city', city);
+		data.append('uf',	uf);
+		data.append('latitude', String(latitude));
+		data.append('longitude', String(longitude))
+		data.append('items', items.join(','));
+
+		if (selectedFile) {
+			data.append('image', selectedFile);
 		}
+				
 		await api.post('points', data);
 
 		alert('Ponto de Coleta Criado')
@@ -166,7 +173,7 @@ const CreatePoint = () => {
 					Cadastro do
 					<br />Ponto de Coleta
 				</h1>
-				<Dropzone />
+				<Dropzone onFileUploaded={setSelectedFile} />
 
 				<fieldset>
 					<legend>
