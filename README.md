@@ -5,6 +5,7 @@
 
 - [x] API - pasta contém o backend do projeto
 - [x] Web - pasta contém o frontend do projeto
+- [x] Mobile - pasta contém o projeto Mobile
 
 <strong>Importante:</strong>
 
