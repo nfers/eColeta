@@ -59,7 +59,7 @@ class PointsController {
     const trx = await knex.transaction();
 
     const point = {
-      image: 'Fake image',
+      image: req.file.filename,
       name,
       email,
       whatsapp,
@@ -73,7 +73,10 @@ class PointsController {
 
     const point_id = insertedIds[0]
 
-    const pointItems = items.map((item_id: number) => {
+    const pointItems = items
+      .split(',')
+      .map((item: string) => Number(item.trim()))
+      .map((item_id: number) => {
       return {
         item_id,
         point_id: point_id
