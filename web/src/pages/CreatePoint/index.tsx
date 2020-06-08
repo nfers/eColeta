@@ -11,6 +11,8 @@ import { LeafletMouseEvent } from 'leaflet';
 
 import Maps from './../../components/Maps';
 
+import Dropzone from '../../components/Dropzone'
+
 import api from '../../services/api';
 import apiUf from '../../services/apiUF';
 import apiCity from '../../services/apiCity';
@@ -164,6 +166,7 @@ const CreatePoint = () => {
 					Cadastro do
 					<br />Ponto de Coleta
 				</h1>
+				<Dropzone />
 
 				<fieldset>
 					<legend>
