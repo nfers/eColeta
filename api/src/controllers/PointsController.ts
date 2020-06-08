@@ -16,9 +16,16 @@ class PointsController {
       .distinct()
       .select('points.*');
 
+    const serializedPoints = points.map(point => {
+      return {
+        ...points,
+        image_url: `http://192.168.0.2:3030/uploads/${point.image}`,
+      }
+    });
+
 
     return res.status(200).send({
-      result: true, data: [points]
+      result: true, data: [serializedPoints]
     })
   }
 
@@ -34,12 +41,18 @@ class PointsController {
       });
     };
 
+    const serializedPoint = {
+        ...point,
+        image_url: `http://192.168.0.2:3030/uploads/${point.image}`,
+      }
+    
+
     const items = await knex('items')
       .join('point_items', 'items.id', '=', 'point_items.item_id')
       .where('point_items.point_id', id);
 
     return res.status(200).send({
-      result: true, data: [{point, items}]
+      result: true, data: [{point, items, serializedPoint}]
     })
   }
 
